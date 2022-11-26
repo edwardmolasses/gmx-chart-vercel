@@ -7,7 +7,7 @@ async function getVixDataFromUrl() {
     return dataPromise
 }
 
-async function getVixData() {
+async function getAndProcessVixData() {
     return getVixDataFromUrl()
         .then(async data => {
             const csvToArray = (data, delimiter = ',', omitFirstRow = false) =>
@@ -19,14 +19,25 @@ async function getVixData() {
                 .slice(1, -1)
                 .map(row => {
                     const datetimeArr = row[0].split("/");
-                    const datetime = new Date(datetimeArr[2], datetimeArr[1] - 1, datetimeArr[0]);
+                    const datetime = new Date(datetimeArr[2], datetimeArr[0] - 1, datetimeArr[1]);
                     return [datetime.getTime(), row[4]];
                 })
                 .reverse();
-            console.log(csvData);
-            return data;
+
+            return csvData;
         })
         .catch(err => console.log(err));
+}
+
+function latestVixTrend(vixData) {
+    // from latest to earliest data
+    // 
+}
+
+async function getVixData() {
+    const vixData = await getAndProcessVixData();
+    // console.log(vixData);
+    return vixData;
 }
 
 module.exports = getVixData;

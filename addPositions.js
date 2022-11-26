@@ -120,8 +120,9 @@ async function addPositions() {
         const datetime = Date.now();
         const row = `\r\n${datetime},${shortVolume},${longVolume},${shortLongDiff},${parseInt(ethPrice.price)}`;
 
-        addPositionToContentful(datetime, shortVolume, longVolume, shortLongDiff, parseInt(ethPrice.price));
-        fs.appendFileSync("positions.csv", row);
+        // comment out the last two lines to stop adding positions to database
+        // addPositionToContentful(datetime, shortVolume, longVolume, shortLongDiff, parseInt(ethPrice.price));
+        // fs.appendFileSync("positions.csv", row);
     }
 }
 
